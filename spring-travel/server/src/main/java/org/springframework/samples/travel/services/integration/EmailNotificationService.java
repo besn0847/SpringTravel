@@ -103,12 +103,11 @@ public class EmailNotificationService implements NotificationService {
     @Qualifier("errorMessageHandler")
     private MessageHandler messageHandler;
 
-
     @SuppressWarnings("unchecked")
     public void sendEmail(final Message<Object> inboundEmailFromMq) throws Exception {
-
         messageHandler.handleMessage(inboundEmailFromMq);
-
+        
+        log.debug("Sending dequeued mail");
         Map<String, String> templates = (Hashtable<String, String>) inboundEmailFromMq.getPayload();
 
         final String to = inboundEmailFromMq.getHeaders().get(MailHeaders.TO, String.class);
@@ -156,6 +155,7 @@ public class EmailNotificationService implements NotificationService {
 
     @Override
     public void sendConfirmationNotification(String userId, long bookingId) {
+    	log.debug("Sending confirmation notification");
         User user = bookingService.findUser(userId);
         Booking booking = bookingService.findBookingById(bookingId);
 
@@ -170,6 +170,7 @@ public class EmailNotificationService implements NotificationService {
 
 
         } catch (Exception e) {
+        	log.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
