@@ -62,6 +62,8 @@ create table group_authorities (
   authority varchar(50) not null,
   constraint fk_group_authorities_group foreign key(group_id) references groups(id));
   
+create sequence member_identity;
+
 create table group_members (
   id bigint default nextval('member_identity') primary key,
   username varchar(50) not null,
