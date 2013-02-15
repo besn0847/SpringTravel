@@ -75,6 +75,8 @@ public class IntegrationConfiguration {
         Map<String, String> props = new HashMap<String, String>();
         props.put("mail.smtps.auth", true + "");
         props.put("mail.smtps.starttls.enable", true + "");
+        props.put("mail.smtp.auth", true + "");
+        props.put("mail.smtp.starttls.enable", true + "");
         return props;
     }
 
